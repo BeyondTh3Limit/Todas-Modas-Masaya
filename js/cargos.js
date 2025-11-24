@@ -136,7 +136,7 @@
       }
     } catch (e) {
       console.error(e);
-      toastMsg('Error de red', 'error');
+      toastMsg('Hay un empleado con este cargo', 'error');
     }
   }
 

@@ -530,3 +530,48 @@
   height: 25px;
   object-fit: contain;
 }
+
+/* Estilos para la asignación de módulos a roles */
+.modulos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  
+  gap: 6px 20px;                          
+  margin-top: 10px;
+}
+
+.modulos-grid .grupo {
+  margin-bottom: 6px;                    
+}
+
+.modulos-grid .grupo h4 {
+  font-size: 15px;
+  margin-bottom: 4px;                    
+  margin-top: 0;
+}
+
+.modulos-grid label {
+  display: flex;
+  align-items: center;
+  gap: 5px;                                
+  font-size: 14px;
+}
+
+.modulos-grid input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #4a67ff; 
+}
+
+.modulos-grid label {
+    font-size: 16px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+
+.modulos-grid .mod-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

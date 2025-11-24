@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 session_start();
 include("conexion.php");
 
@@ -9,32 +13,73 @@ if (isset($_SESSION['login_error'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $correo = isset($_POST['correo']) ? trim($_POST['correo']) : '';
+
+    $correo     = isset($_POST['correo']) ? trim($_POST['correo']) : '';
     $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : '';
 
- 
-    $hash = md5($contrasena);
+    if ($correo !== '' && $contrasena !== '') {
 
-    $stmt = $conexion->prepare("SELECT IdUsuario, Nombre_de_Usuario, Correo FROM Usuario WHERE Correo = ? AND Contrasena = ?");
-    $stmt->bind_param("ss", $correo, $hash);
-    $stmt->execute();
-    $res = $stmt->get_result();
+        $hash = md5($contrasena);
+        $stmt = $conexion->prepare("
+            SELECT IdUsuario, Nombre_de_Usuario, Correo, IdRol
+            FROM usuario
+            WHERE Correo = ? AND Contrasena = ?
+        ");
 
-    if ($res && $res->num_rows === 1) {
-        $row = $res->fetch_assoc();
+        if ($stmt) {
+            $stmt->bind_param("ss", $correo, $hash);
+            $stmt->execute();
+            $res = $stmt->get_result();
 
-        session_regenerate_id(true);
-        $_SESSION['id']     = $row['IdUsuario'];
-        $_SESSION['nombre'] = $row['Nombre_de_Usuario'];
-        $_SESSION['correo'] = $row['Correo'];
+            if ($res && $res->num_rows === 1) {
+                $row = $res->fetch_assoc();
 
-    
-        header("Location: menu.php");
-        exit();
+                //   Cargar módulos por rol
+                $idRol = (int)$row['IdRol'];
+                $mods  = [];
+
+                $sqlPerm = "
+                    SELECT m.Clave
+                    FROM rolmodulo rm
+                    INNER JOIN modulo m ON m.IdModulo = rm.IdModulo
+                    WHERE rm.IdRol = ?
+                ";
+
+                $stPerm = $conexion->prepare($sqlPerm);
+                if ($stPerm) {
+                    $stPerm->bind_param("i", $idRol);
+                    $stPerm->execute();
+                    $resPerm = $stPerm->get_result();
+
+                    while ($perm = $resPerm->fetch_assoc()) {
+                
+                        $mods[] = $perm['Clave'];
+                    }
+                }
+
+          
+                //   Guardar sesión
+         
+                session_regenerate_id(true);
+                $_SESSION['id']         = $row['IdUsuario'];
+                $_SESSION['id_usuario'] = $row['IdUsuario'];
+                $_SESSION['nombre']     = $row['Nombre_de_Usuario'];
+                $_SESSION['correo']     = $row['Correo'];
+                $_SESSION['id_rol']     = $idRol;
+                $_SESSION['modulos']    = $mods;   
+
+                header("Location: menu.php");
+                exit();
+            } else {
+                $_SESSION['login_error'] = "Correo o contraseña incorrectos.";
+                header("Location: index.php");
+                exit();
+            }
+        } else {
+            $error = "Error en la consulta: " . $conexion->error;
+        }
     } else {
-        $_SESSION['login_error'] = "Correo o contraseña incorrectos.";
-        header("Location: index.php");
-        exit();
+        $error = "Debe completar ambos campos.";
     }
 }
 ?>
@@ -62,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="input-group">
                 <ion-icon name="lock-closed-outline"></ion-icon>
                 <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
-                <ion-icon name="eye-outline" id="togglePassword" class="eye-icon"></ion-icon>
+                <ion-icon name="eye-outline" id="togglePassword" class="eye-icon"></ionicon>
             </div>
             <button type="submit">Entrar</button>
         </form>

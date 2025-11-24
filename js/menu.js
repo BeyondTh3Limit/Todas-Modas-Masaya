@@ -104,6 +104,14 @@ function cargarModuloRoles() {
     .then(html => {
       cont.innerHTML = html;
 
+              if (!document.querySelector('link[href*="vistas.css"]')) {
+          const l = document.createElement('link');
+          l.rel   = 'stylesheet';
+          l.href  = 'css/vistas.css?v=' + Date.now();
+          document.head.appendChild(l);
+        }
+
+
       const prev = document.getElementById('mod-roles-js');
       if (prev) prev.remove();
 

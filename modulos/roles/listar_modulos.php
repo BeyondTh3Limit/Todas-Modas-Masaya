@@ -12,25 +12,18 @@ header('Content-Type: application/json; charset=utf-8');
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    $sql = "
-      SELECT r.IdRol, r.Descripcion, COUNT(rm.IdModulo) AS NumModulos
-      FROM Rol r
-      LEFT JOIN RolModulo rm ON rm.IdRol = r.IdRol
-      GROUP BY r.IdRol, r.Descripcion
-      ORDER BY r.IdRol ASC
-    ";
-
+    $sql = "SELECT IdModulo, Clave, Titulo FROM Modulo ORDER BY Titulo ASC";
     $res = $conexion->query($sql);
-    $data = [];
+    $mods = [];
     while ($row = $res->fetch_assoc()) {
-        $data[] = [
-            'IdRol'      => (int)$row['IdRol'],
-            'Descripcion'=> $row['Descripcion'],
-            'NumModulos' => (int)$row['NumModulos'],
+        $mods[] = [
+            'IdModulo' => (int)$row['IdModulo'],
+            'Clave'    => $row['Clave'],
+            'Titulo'   => $row['Titulo'],
         ];
     }
 
-    echo json_encode(['ok' => true, 'data' => $data], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['ok' => true, 'modulos' => $mods], JSON_UNESCAPED_UNICODE);
 
 } catch (Exception $e) {
     echo json_encode(['ok' => false, 'msg' => 'Error: '.$e->getMessage()]);

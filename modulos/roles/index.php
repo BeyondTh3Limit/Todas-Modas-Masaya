@@ -1,82 +1,98 @@
 <?php
-
 session_start();
-if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'); }
-require_once dirname(__DIR__, 2) . '/conexion.php';
-?>
-<link rel="stylesheet" href="css/vistas.css">
+if (!isset($_SESSION['correo'])) {
+  http_response_code(401);
+  exit('No autorizado');
+}
 
-<!-- ESTE MODULO AUN SE ENCUENTRA EN PROCESO, COMO A LAS OPCIONES QUE PUEDE ACCEDER UN ROL-->
+?>
 <div class="vistas-wrapper">
-  <h2 class="titulo-principal">Lista de Roles</h2>
+
+  <h2 class="titulo-principal">Gestión de roles</h2>
 
   <div class="tabla-card">
+
     <div class="card-top">
-      <button id="btnNuevoRol" class="btn-nuevo">Nuevo rol</button>
+      <button type="button" id="btnNuevoRol" class="btn-nuevo">
+        Rol nuevo
+      </button>
     </div>
 
     <div class="card-actions">
-      <input type="text" id="buscarRol" class="input-buscar" placeholder="Buscar por descripción o ID">
+      <input type="text" id="buscarRol" class="input-buscar"
+             placeholder="Buscar rol por nombre...">
     </div>
 
     <table class="tabla-vistas" id="tablaRoles">
       <thead>
         <tr>
-          <th style="width:120px;">ID</th>
+          <th>ID</th>
           <th>Descripción</th>
-          <th style="width:80px;">Editar</th>
-          <th style="width:90px;">Eliminar</th>
+          <th >Cant. de módulos asignados</th>
+          <th style="text-align:center;">Editar</th>
+          <th style="text-align:center;">Eliminar</th>
         </tr>
       </thead>
-      <tbody><!-- JS --></tbody>
+      <tbody>
+        <tr><td colspan="5">No hay roles registrados</td></tr>
+      </tbody>
     </table>
+
   </div>
 </div>
 
-<!-- Modal Crear/Editar -->
+<!-- Modal Rol -->
 <div class="modal" id="modalRol" aria-hidden="true">
-  <div class="modal-content" style="max-height: 80vh; overflow:auto;">
+  <div class="modal-content large">
     <div class="modal-header">
-      <h3 id="modalTituloRol">Nuevo rol</h3>
+      <h3 id="tituloModalRol">Nuevo rol</h3>
     </div>
-    <form id="formRol" autocomplete="off">
-      <input type="hidden" id="IdRol" name="IdRol">
+
+    <form id="formRol">
+      <input type="hidden" name="IdRol" id="IdRol">
+
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div class="icon-slot">
+          <img src="img/rol.svg" alt="">
+        </div>
         <div class="form-field">
-          <label for="DescripcionRol">Descripción</label>
-          <input type="text" id="DescripcionRol" name="Descripcion" required maxlength="60">
+          <label for="DescripcionRol">Nombre del rol</label>
+          <input type="text" name="Descripcion" id="DescripcionRol" required>
         </div>
       </div>
 
-      <!-- Lista de permisos -->
-      <div id="permisosContainer" style="margin-top:12px;">
-        <!-- JS renderiza grupos y switches aquí -->
+      <div class="form-row">
+        <div class="icon-slot"></div>
+        <div class="form-field">
+          <label>Módulos a los que tendrá acceso</label>
+          <div id="listaModulosRol" class="modulos-grid">
+          </div>
+        </div>
       </div>
 
       <div class="modal-actions">
         <button type="button" class="btn-cancelar" id="btnCancelarRol">Cancelar</button>
-        <button type="submit" class="btn-guardar" id="btnGuardarRol">Guardar</button>
+        <button type="submit" class="btn-guardar">Guardar</button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- Confirm Eliminar -->
-<div class="modal" id="modalConfirmRol" aria-hidden="true">
+<div id="toast" class="toast" style="display:none;"></div>
+
+<!-- ELIMINAR -->
+<div id="modalConfirmacion" class="modal" aria-hidden="true">
   <div class="modal-content small">
-    <div class="modal-header">
-      <h3>Confirmar eliminación</h3>
-    </div>
-    <p>¿Está seguro de eliminar este rol?</p>
-    <div class="modal-actions">
-      <button type="button" class="btn-cancelar" id="btnNoRol">No</button>
-      <button type="button" class="btn-eliminar" id="btnSiRol">Sí, eliminar</button>
+    <h3>Confirmar eliminación</h3>
+    <p id="textoConfirmacion">¿Está seguro de eliminar este registro?</p>
+
+    <div class="modal-actions" style="justify-content: flex-end;">
+      <button type="button" id="btnNo" class="btn-cancelar">No</button>
+      <button type="button" id="btnSi" class="btn-eliminar">Sí, eliminar</button>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
-<div id="toastRol" class="toast" style="display:none;"></div>
+
 
 <script src="js/roles.js?v=<?php echo time(); ?>" defer></script>
