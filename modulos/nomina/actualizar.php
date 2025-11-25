@@ -1,15 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) {
-    http_response_code(401);
-    header('Content-Type: application/json');
-    echo json_encode(['ok'=>false,'msg'=>'No autorizado']);
-    exit;
-}
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 
 /* Calculos */
 
@@ -97,7 +90,7 @@ try {
     }
 
     // Verificar que la nómina exista
-    $stmtCheck = $conexion->prepare("SELECT IdNomina FROM Nomina WHERE IdNomina=?");
+    $stmtCheck = $conexion->prepare("SELECT IdNomina FROM nomina WHERE IdNomina=?");
     $stmtCheck->bind_param("i", $IdNomina);
     $stmtCheck->execute();
     if (!$stmtCheck->get_result()->fetch_assoc()) {
@@ -106,7 +99,7 @@ try {
     }
 
     // Verificar que exista el empleado
-    $stmtEmp = $conexion->prepare("SELECT Cedula FROM Empleado WHERE Cedula=?");
+    $stmtEmp = $conexion->prepare("SELECT Cedula FROM empleado WHERE Cedula=?");
     $stmtEmp->bind_param("s", $Cedula);
     $stmtEmp->execute();
     $resEmp = $stmtEmp->get_result();
@@ -121,7 +114,7 @@ try {
 
     // Actualizar Nomina
     $stmt = $conexion->prepare(
-      "UPDATE Nomina
+      "UPDATE nomina
        SET Cedula=?, SalarioBasico=?, SalarioBruto=?, INNS=?, IR=?, DeduccionTotal=?, SalarioNeto=?, FechaRegistro=?
        WHERE IdNomina=?"
     );
@@ -141,7 +134,7 @@ try {
 
     // Actualizar DetalleNomina
     $stmtDet = $conexion->prepare(
-      "UPDATE DetalleNomina
+      "UPDATE detallenomina
        SET HorasExtras=?, Bonos=?, Incentivos=?, Prestamos=?
        WHERE IdNomina=?"
     );

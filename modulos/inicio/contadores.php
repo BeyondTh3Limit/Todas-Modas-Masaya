@@ -8,20 +8,19 @@ if (!isset($_SESSION['correo'])) {
 }
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+;
 
 try {
     // Total clientes
-    $q = $conexion->query("SELECT COUNT(*) AS c FROM Cliente");
+    $q = $conexion->query("SELECT COUNT(*) AS c FROM cliente");
     $clientes = (int)$q->fetch_assoc()['c'];
 
     // Total proveedores
-    $q = $conexion->query("SELECT COUNT(*) AS c FROM Proveedor");
+    $q = $conexion->query("SELECT COUNT(*) AS c FROM proveedor");
     $proveedores = (int)$q->fetch_assoc()['c'];
 
     // Unidades existentes (stock)
-    $q = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS s FROM Producto");
+    $q = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS s FROM producto");
     $inventario = (int)$q->fetch_assoc()['s'];
 
     // Unidades vendidas e importe vendido
@@ -29,8 +28,8 @@ try {
         SELECT 
             COALESCE(SUM(d.Cantidad),0)         AS unidades,
             COALESCE(SUM(d.Subtotal),0)         AS importe
-        FROM Detalle_de_salida d
-        JOIN Salida_de_stock s ON s.IdVenta = d.IdVenta
+        FROM detalle_de_salida d
+        JOIN salida_de_stock s ON s.IdVenta = d.IdVenta
     ");
     $row = $q->fetch_assoc();
     $vendidas = (int)$row['unidades'];

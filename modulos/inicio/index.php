@@ -6,18 +6,18 @@ if (!isset($_SESSION['correo'])) {
 }
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 
 //CONTADORES
-$clientes = $conexion->query("SELECT COUNT(*) AS total FROM Cliente")
+$clientes = $conexion->query("SELECT COUNT(*) AS total FROM cliente")
 ->fetch_assoc()['total'] ?? 0;
-$proveedores = $conexion->query("SELECT COUNT(*) AS total FROM Proveedor")
+$proveedores = $conexion->query("SELECT COUNT(*) AS total FROM proveedor")
 ->fetch_assoc()['total'] ?? 0;
-$unidadesInventario = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS total FROM Producto")
+$unidadesInventario = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS total FROM producto")
 ->fetch_assoc()['total'] ?? 0;
-$productosVendidos = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS total FROM Detalle_de_salida")
+$productosVendidos = $conexion->query("SELECT COALESCE(SUM(Cantidad),0) AS total FROM detalle_de_salida")
 ->fetch_assoc()['total'] ?? 0;
-$importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FROM Detalle_de_salida")
+$importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FROM detalle_de_salida")
 ->fetch_assoc()['total'] ?? 0;
 ?>
 <section class="inicio-container">

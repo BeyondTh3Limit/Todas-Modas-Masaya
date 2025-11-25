@@ -6,7 +6,7 @@ if (!isset($_SESSION['correo'])) {
 }
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
-require_once dirname(__DIR__, 2) . '/tcpdf/tcpdf.php';
+require_once dirname(__DIR__, 2) . '/TCPDF/tcpdf.php';
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $IdNomina = (int)($_GET['IdNomina'] ?? 0);
@@ -31,10 +31,10 @@ $sql = "SELECT
           e.Nombre,
           e.Apellido,
           c.Nombre AS Cargo
-        FROM Nomina n
-        JOIN DetalleNomina d ON d.IdNomina = n.IdNomina
-        JOIN Empleado e      ON e.Cedula   = n.Cedula
-        JOIN Cargo    c      ON c.IdCargo  = e.IdCargo
+        FROM nomina n
+        JOIN detallenomina d ON d.IdNomina = n.IdNomina
+        JOIN empleado e      ON e.Cedula   = n.Cedula
+        JOIN cargo    c      ON c.IdCargo  = e.IdCargo
         WHERE n.IdNomina = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("i", $IdNomina);

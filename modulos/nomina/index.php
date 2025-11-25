@@ -1,9 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'); }
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 /*Cargar empleados para autocompletar cédula/nombre/cargo */
 $empleados = [];
@@ -11,8 +9,8 @@ $sql = "SELECT e.Cedula,
                e.Nombre,
                e.Apellido,
                c.Nombre AS Cargo
-        FROM Empleado e
-        JOIN Cargo c ON c.IdCargo = e.IdCargo
+        FROM empleado e
+        JOIN cargo c ON c.IdCargo = e.IdCargo
         ORDER BY e.Nombre, e.Apellido";
 $res = $conexion->query($sql);
 while ($row = $res->fetch_assoc()) {

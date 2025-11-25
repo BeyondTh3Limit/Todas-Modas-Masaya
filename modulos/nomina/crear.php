@@ -1,15 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) {
-    http_response_code(401);
-    header('Content-Type: application/json');
-    echo json_encode(['ok'=>false,'msg'=>'No autorizado']);
-    exit;
-}
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 
 /*Calculos*/
 
@@ -107,7 +100,7 @@ try {
     }
 
     // Verificar que exista el empleado
-    $stmtEmp = $conexion->prepare("SELECT Cedula FROM Empleado WHERE Cedula=?");
+    $stmtEmp = $conexion->prepare("SELECT Cedula FROM empleado WHERE Cedula=?");
     $stmtEmp->bind_param("s", $Cedula);
     $stmtEmp->execute();
     $resEmp = $stmtEmp->get_result();
@@ -123,7 +116,7 @@ try {
 
     // Insertar en Nomina
     $stmt = $conexion->prepare(
-      "INSERT INTO Nomina
+      "INSERT INTO nomina
        (Cedula, SalarioBasico, SalarioBruto, INNS, IR, DeduccionTotal, SalarioNeto, FechaRegistro)
        VALUES (?,?,?,?,?,?,?,?)"
     );
@@ -144,7 +137,7 @@ try {
 
     // Insertar en DetalleNomina
    $stmtDet = $conexion->prepare(
-  "INSERT INTO DetalleNomina
+  "INSERT INTO detallenomina
    (IdNomina, HorasExtras, Bonos, Incentivos, Prestamos, ValorHorasExtra)
    VALUES (?,?,?,?,?,?)"
 );

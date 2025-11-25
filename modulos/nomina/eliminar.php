@@ -1,15 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) {
-    http_response_code(401);
-    header('Content-Type: application/json');
-    echo json_encode(['ok'=>false,'msg'=>'No autorizado']);
-    exit;
-}
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
     $IdNomina = (int)($_POST['IdNomina'] ?? 0);
@@ -18,7 +10,7 @@ try {
         exit;
     }
 
-    $stmt = $conexion->prepare("DELETE FROM Nomina WHERE IdNomina=?");
+    $stmt = $conexion->prepare("DELETE FROM nomina WHERE IdNomina=?");
     $stmt->bind_param("i", $IdNomina);
     $stmt->execute();
 
