@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 
 
 $categorias = [];
-$sqlCat = "SELECT IdCategoria, Descripcion FROM Categoria ORDER BY Descripcion";
+$sqlCat = "SELECT IdCategoria, Descripcion FROM categoria ORDER BY Descripcion";
 $resCat = $conexion->query($sqlCat);
 if ($resCat) {
   while ($row = $resCat->fetch_assoc()) {

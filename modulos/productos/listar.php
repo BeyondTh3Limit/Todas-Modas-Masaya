@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
+
 
 $sql = "SELECT p.IdProducto,
                p.IdCategoria,
@@ -15,8 +15,8 @@ $sql = "SELECT p.IdProducto,
                p.Color,
                p.Cantidad,
                p.Precio_de_Venta
-        FROM Producto p
-        JOIN Categoria c ON c.IdCategoria = p.IdCategoria
+        FROM producto p
+        JOIN categoria c ON c.IdCategoria = p.IdCategoria
         ORDER BY p.IdProducto DESC";
 
 $res = $conexion->query($sql);

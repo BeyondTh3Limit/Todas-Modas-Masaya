@@ -26,7 +26,7 @@ if ($IdCategoria <= 0 || $Nombre === '' || $Precio_de_Venta <= 0) {
 }
 
 $stmt = $conexion->prepare(
-    "INSERT INTO Producto
+    "INSERT INTO producto
      (IdCategoria, Marca, Nombre, Descripcion, Talla, Color, Cantidad, Precio_de_Venta)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 );

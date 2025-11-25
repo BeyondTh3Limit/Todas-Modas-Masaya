@@ -19,7 +19,7 @@ if ($IdProducto <= 0 || $IdCategoria <= 0 || $Nombre === '') {
 }
 
 $stmt = $conexion->prepare(
-  "UPDATE Producto
+  "UPDATE producto
    SET IdCategoria=?, Marca=?, Nombre=?, Descripcion=?, Talla=?, Color=?, Cantidad=?, Precio_de_Venta=?
    WHERE IdProducto=?"
 );

@@ -9,7 +9,7 @@ if ($IdProducto <= 0) {
   exit;
 }
 
-$stmt = $conexion->prepare("DELETE FROM Producto WHERE IdProducto = ?");
+$stmt = $conexion->prepare("DELETE FROM producto WHERE IdProducto = ?");
 $stmt->bind_param("i", $IdProducto);
 
 $ok = $stmt->execute();
