@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 header('Content-Type: application/json; charset=utf-8');
 
 $sql = "SELECT IdCategoria, Descripcion
-        FROM Categoria
+        FROM categoria
         ORDER BY IdCategoria DESC";
 $res = $conexion->query($sql);
 

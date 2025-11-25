@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 $IdCategoria = intval($_POST['IdCategoria'] ?? 0);
 if ($IdCategoria <= 0) { echo json_encode(['ok'=>false,'msg'=>'ID inválido']); exit; }
 
-$stmt = $conexion->prepare("DELETE FROM Categoria WHERE IdCategoria=?");
+$stmt = $conexion->prepare("DELETE FROM categoria WHERE IdCategoria=?");
 $stmt->bind_param("i", $IdCategoria);
 
 $ok = $stmt->execute();

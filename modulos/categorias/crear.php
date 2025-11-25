@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 $Descripcion = trim($_POST['Descripcion'] ?? '');
 if ($Descripcion === '') { echo json_encode(['ok'=>false, 'msg'=>'La descripción es obligatoria']); exit; }
 
-$stmt = $conexion->prepare("INSERT INTO Categoria (Descripcion) VALUES (?)");
+$stmt = $conexion->prepare("INSERT INTO categoria (Descripcion) VALUES (?)");
 $stmt->bind_param("s", $Descripcion);
 
 $ok = $stmt->execute();

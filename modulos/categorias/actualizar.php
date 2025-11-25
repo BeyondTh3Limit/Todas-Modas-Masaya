@@ -10,7 +10,7 @@ if ($IdCategoria <= 0 || $Descripcion === '') {
   echo json_encode(['ok'=>false, 'msg'=>'Datos incompletos']); exit;
 }
 
-$stmt = $conexion->prepare("UPDATE Categoria SET Descripcion=? WHERE IdCategoria=?");
+$stmt = $conexion->prepare("UPDATE categoria SET Descripcion=? WHERE IdCategoria=?");
 $stmt->bind_param("si", $Descripcion, $IdCategoria);
 
 $ok = $stmt->execute();
