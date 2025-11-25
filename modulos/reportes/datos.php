@@ -128,7 +128,7 @@ try {
               FROM compra co
               JOIN usuario u         ON u.IdUsuario    = co.IdUsuario
               JOIN proveedor pr      ON pr.IdProveedor = co.IdProveedor
-              JOIN detalle_Compra dc ON dc.IdCompra    = co.IdCompra
+              JOIN detalle_compra dc ON dc.IdCompra    = co.IdCompra
               JOIN producto p        ON p.IdProducto   = dc.IdProducto
               JOIN categoria cat     ON cat.IdCategoria = p.IdCategoria
               WHERE co.Fecha BETWEEN ? AND ?
