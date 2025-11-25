@@ -1,15 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) {
-    http_response_code(401);
-    header('Content-Type: application/json');
-    echo json_encode(['ok' => false, 'msg' => 'No autorizado']);
-    exit;
-}
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['ok' => false, 'msg' => 'Método no permitido']);
@@ -27,12 +22,12 @@ try {
     $conexion->begin_transaction();
 
     // borrar permisos
-    $stDelPerm = $conexion->prepare("DELETE FROM RolModulo WHERE IdRol = ?");
+    $stDelPerm = $conexion->prepare("DELETE FROM rolmodulo WHERE IdRol = ?");
     $stDelPerm->bind_param("i", $IdRol);
     $stDelPerm->execute();
 
     // borrar rol
-    $stDelRol = $conexion->prepare("DELETE FROM Rol WHERE IdRol = ?");
+    $stDelRol = $conexion->prepare("DELETE FROM rol WHERE IdRol = ?");
     $stDelRol->bind_param("i", $IdRol);
     $stDelRol->execute();
 

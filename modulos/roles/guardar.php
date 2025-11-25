@@ -1,15 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) {
-    http_response_code(401);
-    header('Content-Type: application/json');
-    echo json_encode(['ok' => false, 'msg' => 'No autorizado']);
-    exit;
-}
-
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['ok' => false, 'msg' => 'Método no permitido']);
@@ -36,26 +28,26 @@ try {
 
     if ($IdRol > 0) {
         // actualizar
-        $st = $conexion->prepare("UPDATE Rol SET Descripcion = ? WHERE IdRol = ?");
+        $st = $conexion->prepare("UPDATE rol SET Descripcion = ? WHERE IdRol = ?");
         $st->bind_param("si", $Descripcion, $IdRol);
         $st->execute();
 
     } else {
         // insertar
-        $st = $conexion->prepare("INSERT INTO Rol (Descripcion) VALUES (?)");
+        $st = $conexion->prepare("INSERT INTO rol (Descripcion) VALUES (?)");
         $st->bind_param("s", $Descripcion);
         $st->execute();
         $IdRol = $conexion->insert_id;
     }
 
     // borrar permisos actuales
-    $stDel = $conexion->prepare("DELETE FROM RolModulo WHERE IdRol = ?");
+    $stDel = $conexion->prepare("DELETE FROM rolmodulo WHERE IdRol = ?");
     $stDel->bind_param("i", $IdRol);
     $stDel->execute();
 
     // insertar permisos nuevos
     if (!empty($modulos)) {
-        $stIns = $conexion->prepare("INSERT INTO RolModulo (IdRol, IdModulo) VALUES (?, ?)");
+        $stIns = $conexion->prepare("INSERT INTO rolmodulo (IdRol, IdModulo) VALUES (?, ?)");
         foreach ($modulos as $idMod) {
             if ($idMod <= 0) continue;
             $stIns->bind_param("ii", $IdRol, $idMod);
