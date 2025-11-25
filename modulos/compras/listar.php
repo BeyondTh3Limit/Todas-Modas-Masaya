@@ -15,7 +15,7 @@ try {
                    u.Nombre_de_Usuario   AS Comprador,
                    p.Nombre   AS Proveedor,
                    c.Fecha
-            FROM Compra c
+            FROM compra c
             JOIN usuario   u ON u.IdUsuario   = c.IdUsuario
             JOIN proveedor p ON p.IdProveedor = c.IdProveedor
             ORDER BY c.IdCompra DESC";
