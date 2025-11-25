@@ -17,7 +17,7 @@ if ($IdCliente <= 0 || $Nombre === '' || $Apellido === '' || $IdDepartamento <= 
 }
 
 $stmt = $conexion->prepare(
-  "UPDATE Cliente
+  "UPDATE cliente
    SET Nombre=?, Apellido=?, IdDepartamento=?, Direccion=?, Telefono=?, TipoCliente=?
    WHERE IdCliente=?"
 );

@@ -9,7 +9,7 @@ if ($IdCliente <= 0) {
   exit;
 }
 
-$stmt = $conexion->prepare("DELETE FROM Cliente WHERE IdCliente = ?");
+$stmt = $conexion->prepare("DELETE FROM cliente WHERE IdCliente = ?");
 $stmt->bind_param("i", $IdCliente);
 
 $ok = $stmt->execute();

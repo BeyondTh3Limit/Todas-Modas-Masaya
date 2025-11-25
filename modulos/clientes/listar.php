@@ -13,8 +13,8 @@ $sql = "SELECT c.IdCliente,
                c.Direccion,
                c.Telefono,
                c.TipoCliente
-        FROM Cliente c
-        JOIN Departamento d ON d.IdDepartamento = c.IdDepartamento
+        FROM cliente c
+        JOIN departamento d ON d.IdDepartamento = c.IdDepartamento
         ORDER BY c.IdCliente DESC";
 
 $res = $conexion->query($sql);

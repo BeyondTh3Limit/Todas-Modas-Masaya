@@ -16,7 +16,7 @@ if ($Nombre === '' || $Apellido === '' || $IdDepartamento <= 0) {
 }
 
 $stmt = $conexion->prepare(
-  "INSERT INTO Cliente (Nombre, Apellido, IdDepartamento, Direccion, Telefono, TipoCliente)
+  "INSERT INTO cliente (Nombre, Apellido, IdDepartamento, Direccion, Telefono, TipoCliente)
    VALUES (?, ?, ?, ?, ?, ?)"
 );
 $stmt->bind_param("ssisss", $Nombre, $Apellido, $IdDepartamento, $Direccion, $Telefono, $TipoCliente);

@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 
 
 $departamentos = [];
-$sqlDep = "SELECT IdDepartamento, Nombre FROM Departamento ORDER BY Nombre";
+$sqlDep = "SELECT IdDepartamento, Nombre FROM departamento ORDER BY Nombre";
 $resDep = $conexion->query($sqlDep);
 if ($resDep) {
   while ($row = $resDep->fetch_assoc()) {
