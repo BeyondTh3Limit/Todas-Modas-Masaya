@@ -7,10 +7,6 @@ if (!isset($_SESSION['correo'])) {
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
-
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
 try {
 
 
@@ -20,7 +16,7 @@ try {
         $correoSesion = $_SESSION['correo'] ?? '';
         if ($correoSesion !== '') {
             $stmtUser = $conexion->prepare(
-                "SELECT IdUsuario FROM Usuario WHERE Correo = ? LIMIT 1"
+                "SELECT IdUsuario FROM usuario WHERE Correo = ? LIMIT 1"
             );
             $stmtUser->bind_param("s", $correoSesion);
             $stmtUser->execute();
@@ -60,7 +56,7 @@ try {
 
     // Insertar cabecera de compra
     $stmt = $conexion->prepare(
-        "INSERT INTO Compra (IdUsuario, IdProveedor, Fecha)
+        "INSERT INTO compra (IdUsuario, IdProveedor, Fecha)
          VALUES (?, ?, ?)"
     );
     $stmt->bind_param("iis", $IdUsuario, $IdProveedor, $Fecha);
@@ -69,11 +65,11 @@ try {
 
     // Preparar sentencias para detalle y stock
     $stmtDet = $conexion->prepare(
-        "INSERT INTO Detalle_Compra (IdCompra, IdProducto, Cantidad, PrecioUnitario)
+        "INSERT INTO detalle_compra (IdCompra, IdProducto, Cantidad, PrecioUnitario)
          VALUES (?, ?, ?, ?)"
     );
     $stmtUpd = $conexion->prepare(
-        "UPDATE Producto SET Cantidad = Cantidad + ? WHERE IdProducto = ?"
+        "UPDATE producto SET Cantidad = Cantidad + ? WHERE IdProducto = ?"
     );
 
     for ($i = 0; $i < count($productos); $i++) {

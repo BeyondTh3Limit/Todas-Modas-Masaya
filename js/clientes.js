@@ -148,7 +148,7 @@
       }
     } catch (e) {
       console.error(e);
-      toastMsg('Error de red', 'error');
+      toastMsg('Este cliente ha hecho una o mas compras', 'error');
     }
   }
 

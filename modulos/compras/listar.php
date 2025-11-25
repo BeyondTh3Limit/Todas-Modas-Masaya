@@ -8,8 +8,6 @@ if (!isset($_SESSION['correo'])) {
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
 
@@ -18,8 +16,8 @@ try {
                    p.Nombre   AS Proveedor,
                    c.Fecha
             FROM Compra c
-            JOIN Usuario   u ON u.IdUsuario   = c.IdUsuario
-            JOIN Proveedor p ON p.IdProveedor = c.IdProveedor
+            JOIN usuario   u ON u.IdUsuario   = c.IdUsuario
+            JOIN proveedor p ON p.IdProveedor = c.IdProveedor
             ORDER BY c.IdCompra DESC";
 
     $res = $conexion->query($sql);

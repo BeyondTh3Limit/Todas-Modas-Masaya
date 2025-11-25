@@ -8,7 +8,7 @@ if (!isset($_SESSION['correo'])) {
 require_once dirname(__DIR__, 2) . '/conexion.php';
 require_once dirname(__DIR__, 2) . '/tcpdf/tcpdf.php';
 
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 
 $IdCompra = intval($_GET['IdCompra'] ?? 0);
 if ($IdCompra <= 0) {
@@ -23,9 +23,9 @@ $sqlCab = "SELECT
               p.Telefono,
               p.Email,
               p.Direccion
-            FROM Compra c
-            JOIN Usuario   u ON u.IdUsuario   = c.IdUsuario
-            JOIN Proveedor p ON p.IdProveedor = c.IdProveedor
+            FROM compra c
+            JOIN usuario   u ON u.IdUsuario   = c.IdUsuario
+            JOIN proveedor p ON p.IdProveedor = c.IdProveedor
             WHERE c.IdCompra = ?";
 
 $stmt = $conexion->prepare($sqlCab);
@@ -44,8 +44,8 @@ $sqlDet = "SELECT
               d.Cantidad,
               d.PrecioUnitario,
               d.Subtotal
-            FROM Detalle_Compra d
-            JOIN Producto pr ON pr.IdProducto = d.IdProducto
+            FROM detalle_compra d
+            JOIN producto pr ON pr.IdProducto = d.IdProducto
             WHERE d.IdCompra = ?";
 
 $stmt2 = $conexion->prepare($sqlDet);

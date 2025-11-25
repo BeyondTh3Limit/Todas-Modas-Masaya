@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 
 /* Proveedores para el cbx */
 $proveedores = [];
-$sqlProv = "SELECT IdProveedor, Nombre FROM Proveedor ORDER BY Nombre";
+$sqlProv = "SELECT IdProveedor, Nombre FROM proveedor ORDER BY Nombre";
 $resProv = $conexion->query($sqlProv);
 if ($resProv) {
   while ($row = $resProv->fetch_assoc()) {
@@ -16,7 +16,7 @@ if ($resProv) {
 
 /* Productos para el cbx */
 $productos = [];
-$sqlProd = "SELECT IdProducto, Nombre, Talla, Marca FROM Producto ORDER BY Nombre";
+$sqlProd = "SELECT IdProducto, Nombre, Talla, Marca FROM producto ORDER BY Nombre";
 $resProd = $conexion->query($sqlProd);
 if ($resProd) {
   while ($row = $resProd->fetch_assoc()) {

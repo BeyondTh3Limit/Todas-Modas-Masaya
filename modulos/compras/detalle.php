@@ -8,8 +8,6 @@ if (!isset($_SESSION['correo'])) {
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
     $IdCompra = intval($_GET['IdCompra'] ?? ($_POST['IdCompra'] ?? 0));
@@ -32,11 +30,11 @@ try {
                 d.Cantidad,
                 d.PrecioUnitario,
                 d.Subtotal
-            FROM Compra c
-            JOIN Usuario        u  ON u.IdUsuario   = c.IdUsuario
-            JOIN Proveedor      p  ON p.IdProveedor = c.IdProveedor
-            JOIN Detalle_Compra d  ON d.IdCompra    = c.IdCompra
-            JOIN Producto       pr ON pr.IdProducto = d.IdProducto
+            FROM compra c
+            JOIN usuario        u  ON u.IdUsuario   = c.IdUsuario
+            JOIN proveedor      p  ON p.IdProveedor = c.IdProveedor
+            JOIN detalle_compra d  ON d.IdCompra    = c.IdCompra
+            JOIN producto       pr ON pr.IdProducto = d.IdProducto
             WHERE c.IdCompra = ?
             ORDER BY d.IdDetCompra ASC";
 

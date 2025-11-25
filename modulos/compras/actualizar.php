@@ -3,7 +3,6 @@ session_start();
 if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
 
 $IdCompra    = intval($_POST['IdCompra'] ?? 0);
 $IdProveedor = intval($_POST['IdProveedor'] ?? 0);
@@ -35,13 +34,13 @@ try {
   $conexion->begin_transaction();
 
   // 1. Revertir stock actual del detalle
-  $sqlDet = "SELECT IdProducto, Cantidad FROM Detalle_Compra WHERE IdCompra = ?";
+  $sqlDet = "SELECT IdProducto, Cantidad FROM detalle_compra WHERE IdCompra = ?";
   $stmtDetOld = $conexion->prepare($sqlDet);
   $stmtDetOld->bind_param("i", $IdCompra);
   $stmtDetOld->execute();
   $resDet = $stmtDetOld->get_result();
   $stmtUpdStock = $conexion->prepare(
-    "UPDATE Producto SET Cantidad = Cantidad - ? WHERE IdProducto = ?"
+    "UPDATE producto SET Cantidad = Cantidad - ? WHERE IdProducto = ?"
   );
   while ($row = $resDet->fetch_assoc()) {
     $cantOld = intval($row['Cantidad']);
@@ -51,13 +50,13 @@ try {
   }
 
   // 2. Borrar detalle viejo
-  $stmtDelDet = $conexion->prepare("DELETE FROM Detalle_Compra WHERE IdCompra = ?");
+  $stmtDelDet = $conexion->prepare("DELETE FROM detalle_compra WHERE IdCompra = ?");
   $stmtDelDet->bind_param("i", $IdCompra);
   $stmtDelDet->execute();
 
   // 3. Actualizar 
   $stmtCab = $conexion->prepare(
-    "UPDATE Compra SET IdProveedor = ?, Fecha = ? WHERE IdCompra = ?"
+    "UPDATE compra SET IdProveedor = ?, Fecha = ? WHERE IdCompra = ?"
   );
   $stmtCab->bind_param("isi", $IdProveedor, $Fecha, $IdCompra);
   if (!$stmtCab->execute()) {
@@ -65,11 +64,11 @@ try {
   }
 
   $stmtDetNew = $conexion->prepare(
-    "INSERT INTO Detalle_Compra (IdCompra, IdProducto, Cantidad, PrecioUnitario)
+    "INSERT INTO detalle_Compra (IdCompra, IdProducto, Cantidad, PrecioUnitario)
      VALUES (?, ?, ?, ?)"
   );
   $stmtUpdNew = $conexion->prepare(
-    "UPDATE Producto SET Cantidad = Cantidad + ? WHERE IdProducto = ?"
+    "UPDATE producto SET Cantidad = Cantidad + ? WHERE IdProducto = ?"
   );
 
   for ($i = 0; $i < count($productos); $i++) {

@@ -8,8 +8,6 @@ if (!isset($_SESSION['correo'])) {
 
 require_once dirname(__DIR__, 2) . '/conexion.php';
 
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
     $IdCompra = intval($_POST['IdCompra'] ?? 0);
@@ -22,7 +20,7 @@ try {
 
     // Revertir stock
     $sqlDet = "SELECT IdProducto, Cantidad
-               FROM Detalle_Compra
+               FROM detalle_compra
                WHERE IdCompra = ?";
     $stmtDet = $conexion->prepare($sqlDet);
     $stmtDet->bind_param("i", $IdCompra);
@@ -30,7 +28,7 @@ try {
     $resDet = $stmtDet->get_result();
 
     $stmtUpd = $conexion->prepare(
-        "UPDATE Producto SET Cantidad = Cantidad - ? WHERE IdProducto = ?"
+        "UPDATE producto SET Cantidad = Cantidad - ? WHERE IdProducto = ?"
     );
     while ($row = $resDet->fetch_assoc()) {
         $cant   = (int)$row['Cantidad'];
@@ -40,7 +38,7 @@ try {
     }
 
     
-    $stmtDel = $conexion->prepare("DELETE FROM Compra WHERE IdCompra = ?");
+    $stmtDel = $conexion->prepare("DELETE FROM compra WHERE IdCompra = ?");
     $stmtDel->bind_param("i", $IdCompra);
     $stmtDel->execute();
 
