@@ -2,8 +2,8 @@
 session_start();
 if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'); }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-require_once dirname(__DIR__, 2) . '/tcpdf/tcpdf.php';
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+require_once dirname(__DIR__, 2) . '/TCPDF/tcpdf.php';
+
 
 $IdVenta = (int)($_GET['IdVenta'] ?? 0);
 if ($IdVenta<=0) die('ID inválido');
@@ -11,9 +11,9 @@ if ($IdVenta<=0) die('ID inválido');
 $sqlCab = "SELECT s.IdVenta, s.Fecha, s.Metodo_de_pago,
                   u.Nombre_de_Usuario AS Vendedor,
                   CONCAT(c.Nombre,' ',c.Apellido) AS Cliente
-           FROM Salida_de_stock s
-           JOIN Usuario u ON u.IdUsuario = s.IdUsuario
-           JOIN Cliente c ON c.IdCliente = s.IdCliente
+           FROM salida_de_stock s
+           JOIN usuario u ON u.IdUsuario = s.IdUsuario
+           JOIN cliente c ON c.IdCliente = s.IdCliente
            WHERE s.IdVenta = ?";
 $st = $conexion->prepare($sqlCab);
 $st->bind_param("i",$IdVenta);
@@ -23,8 +23,8 @@ if (!$cab) die('No encontrada');
 
 $sqlDet = "SELECT pr.Nombre AS Producto, pr.Marca, pr.Talla,
                   d.Cantidad, d.PrecioUnitario, d.Subtotal
-           FROM Detalle_de_salida d
-           JOIN Producto pr ON pr.IdProducto = d.IdProducto
+           FROM detalle_de_salida d
+           JOIN producto pr ON pr.IdProducto = d.IdProducto
            WHERE d.IdVenta = ?";
 $st2 = $conexion->prepare($sqlDet);
 $st2->bind_param("i",$IdVenta);

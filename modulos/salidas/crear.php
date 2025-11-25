@@ -1,14 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) { http_response_code(401); echo json_encode(['ok'=>false,'msg'=>'No autorizado']); exit; }
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 function getUserId(mysqli $cx) {
   if (!empty($_SESSION['IdUsuario'])) return (int)$_SESSION['IdUsuario'];
   if (empty($_SESSION['correo'])) return 0;
-  $st = $cx->prepare("SELECT IdUsuario FROM Usuario WHERE Correo = ? LIMIT 1");
+  $st = $cx->prepare("SELECT IdUsuario FROM usuario WHERE Correo = ? LIMIT 1");
   $st->bind_param("s", $_SESSION['correo']); $st->execute();
   $r = $st->get_result()->fetch_assoc();
   return $r ? (int)$r['IdUsuario'] : 0;
@@ -29,14 +27,14 @@ try {
 
   $conexion->begin_transaction();
 
-  $st = $conexion->prepare("INSERT INTO Salida_de_stock (IdUsuario, IdCliente, Fecha, Metodo_de_pago) VALUES (?,?,?,?)");
+  $st = $conexion->prepare("INSERT INTO salida_de_stock (IdUsuario, IdCliente, Fecha, Metodo_de_pago) VALUES (?,?,?,?)");
   $st->bind_param("iiss", $IdUsuario, $IdCliente, $Fecha, $Metodo);
   $st->execute();
   $IdVenta = $conexion->insert_id;
 
-  $stSel = $conexion->prepare("SELECT Cantidad, Precio_de_Venta FROM Producto WHERE IdProducto=? FOR UPDATE");
-  $stUpd = $conexion->prepare("UPDATE Producto SET Cantidad = Cantidad - ? WHERE IdProducto=?");
-  $stDet = $conexion->prepare("INSERT INTO Detalle_de_salida (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES (?,?,?,?)");
+  $stSel = $conexion->prepare("SELECT Cantidad, Precio_de_Venta FROM producto WHERE IdProducto=? FOR UPDATE");
+  $stUpd = $conexion->prepare("UPDATE producto SET Cantidad = Cantidad - ? WHERE IdProducto=?");
+  $stDet = $conexion->prepare("INSERT INTO detalle_de_salida (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES (?,?,?,?)");
 
   for ($i=0; $i<count($IdProducto); $i++) {
     $p = (int)$IdProducto[$i];

@@ -5,13 +5,13 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
 
 /* == Clientes para el cbx == */
 $clientes = [];
-$r = $conexion->query("SELECT IdCliente, CONCAT(Nombre,' ',Apellido) AS Nombre FROM Cliente ORDER BY Nombre");
+$r = $conexion->query("SELECT IdCliente, CONCAT(Nombre,' ',Apellido) AS Nombre FROM cliente ORDER BY Nombre");
 if ($r) while ($row = $r->fetch_assoc()) $clientes[] = $row;
 
 /* == Productos para el detalle (con marca, talla, precio, stock) == */
 $productos = [];
 $sqlProd = "SELECT IdProducto, Nombre, Marca, Talla, Precio_de_Venta, Cantidad
-            FROM Producto ORDER BY Nombre";
+            FROM producto ORDER BY Nombre";
 $r2 = $conexion->query($sqlProd);
 if ($r2) while ($row = $r2->fetch_assoc()) $productos[] = $row;
 ?>

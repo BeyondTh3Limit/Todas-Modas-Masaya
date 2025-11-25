@@ -1,9 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['correo'])) { http_response_code(401); echo json_encode(['ok'=>false,'msg'=>'No autorizado']); exit; }
+if (!isset($_SESSION['correo'])) { http_response_code(401); exit; }
 require_once dirname(__DIR__, 2) . '/conexion.php';
-header('Content-Type: application/json; charset=utf-8');
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
   $IdVenta = (int)($_GET['IdVenta'] ?? ($_POST['IdVenta'] ?? 0));
@@ -14,11 +12,11 @@ try {
                  CONCAT(c.Nombre,' ',c.Apellido) AS Cliente,
                  d.IdDetVenta, d.IdProducto, pr.Nombre AS Producto,
                  pr.Marca, pr.Talla, d.Cantidad, d.PrecioUnitario, d.Subtotal
-          FROM Salida_de_stock s
-          JOIN Usuario u ON u.IdUsuario = s.IdUsuario
-          JOIN Cliente c ON c.IdCliente = s.IdCliente
-          JOIN Detalle_de_salida d ON d.IdVenta = s.IdVenta
-          JOIN Producto pr ON pr.IdProducto = d.IdProducto
+          FROM salida_de_stock s
+          JOIN usuario u ON u.IdUsuario = s.IdUsuario
+          JOIN cliente c ON c.IdCliente = s.IdCliente
+          JOIN detalle_de_salida d ON d.IdVenta = s.IdVenta
+          JOIN producto pr ON pr.IdProducto = d.IdProducto
           WHERE s.IdVenta = ?
           ORDER BY d.IdDetVenta ASC";
   $st = $conexion->prepare($sql);
