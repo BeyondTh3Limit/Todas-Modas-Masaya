@@ -44,7 +44,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
       <input type="hidden" id="IdUsuario" name="IdUsuario">
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/cedula.png" alt=""> </div>
         <div class="form-field">
           <label for="Cedula">Cédula (Empleado)</label>
           <select id="Cedula" name="Cedula" required></select>
@@ -52,7 +52,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/info.svg" alt=""> </div>
         <div class="form-field">
           <label for="NombreUsuario">Nombre de usuario</label>
           <input type="text" id="NombreUsuario" name="Nombre_de_Usuario" required maxlength="60">
@@ -60,7 +60,7 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/correo.png" alt=""> </div>
         <div class="form-field">
           <label for="Correo">Correo</label>
           <input type="email" id="Correo" name="Correo" maxlength="100">
@@ -68,23 +68,23 @@ require_once dirname(__DIR__, 2) . '/conexion.php';
       </div>
 
    <div class="form-row">
-  <div class="icon-slot"></div>
+  <div  class="icon-slot" > <img src="img/contrasena.png" alt=""> </div>
   <div class="form-field">
     <label for="Contrasena">Contraseña <small id="helpPass"></small></label>
 
     <div class="input-group" style="position:relative;">
       <input type="password" id="Contrasena" name="Contrasena"
              maxlength="255" placeholder="Contraseña"
-             required style="padding-right:40px;">
+             required style="padding-right :190px;">
 
-      <ion-icon name="eye-outline" id="togglePass" class="eye-icon"></ion-icon>
+      <ion-icon name="eye-outline" id="togglePass" class="eye-icon" required style="padding-right: 390px; "></ion-icon>
     </div>
   </div>
 </div>
 
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/rol.png" alt=""> </div>
         <div class="form-field">
           <label for="IdRol">Rol</label>
           <select id="IdRol" name="IdRol" required></select>

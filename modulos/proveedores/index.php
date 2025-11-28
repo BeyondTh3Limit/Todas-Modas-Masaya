@@ -45,7 +45,7 @@ if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'
       <input type="hidden" name="IdProveedor" id="IdProveedor">
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/info.svg" alt=""> </div>
         <div class="form-field">
           <label for="Nombre">Nombre</label>
           <input type="text" name="Nombre" id="Nombre" required>
@@ -53,7 +53,7 @@ if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/telefono.svg" alt=""> </div>
         <div class="form-field">
           <label for="Telefono">Teléfono</label>
            <input type="text" name="Telefono" id="Telefono" maxlength="8"
@@ -62,7 +62,7 @@ if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/correo.png" alt=""> </div>
         <div class="form-field">
           <label for="Email">Email</label>
           <input type="text" name="Email" id="Email" required placeholder="usuario@gmail.com">
@@ -70,7 +70,7 @@ if (!isset($_SESSION['correo'])) { http_response_code(401); exit('No autorizado'
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/direccion.svg" alt=""> </div>
         <div class="form-field">
           <label for="Direccion">Dirección</label>
           <input type="text" name="Direccion" id="Direccion" required>

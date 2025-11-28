@@ -49,7 +49,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       <input type="hidden" name="originalCedula" id="originalCedula">
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+        <div  class="icon-slot" > <img src="img/cedula.png" alt=""> </div>
         <div class="form-field">
           <label for="Cedula">Cédula</label>
           <input type="text" name="Cedula" id="Cedula" required placeholder="001-000000-0000A">
@@ -57,7 +57,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+        <div  class="icon-slot" > <img src="img/info.svg" alt=""> </div>
         <div class="form-field">
           <label for="Nombre">Nombre</label>
           <input type="text" name="Nombre" id="Nombre" required>
@@ -65,7 +65,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+        <div  class="icon-slot" > <img src="img/info.svg" alt=""> </div>
         <div class="form-field">
           <label for="Apellido">Apellido</label>
           <input type="text" name="Apellido" id="Apellido" required>
@@ -73,7 +73,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+        <div  class="icon-slot" > <img src="img/direccion.svg" alt=""> </div>
         <div class="form-field">
           <label for="Direccion">Dirección</label>
           <input type="text" name="Direccion" id="Direccion" required>
@@ -81,7 +81,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+         <div  class="icon-slot" > <img src="img/telefono.svg" alt=""> </div>
         <div class="form-field">
           <label for="Telefono">Teléfono</label>
           <input type="text" name="Telefono" id="Telefono" maxlength="8"
@@ -90,7 +90,7 @@ while ($row = $q->fetch_assoc()) $cargos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"><!-- ícono futuro --></div>
+      <div  class="icon-slot" > <img src="img/cargo.png" alt=""> </div>
         <div class="form-field">
           <label for="IdCargo">Cargo</label>
           <select name="IdCargo" id="IdCargo" required>

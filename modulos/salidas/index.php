@@ -61,7 +61,7 @@ if ($r2) while ($row = $r2->fetch_assoc()) $productos[] = $row;
       <input type="hidden" name="IdVenta" id="IdVenta">
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/cliente.svg" alt=""> </div>
         <div class="form-field">
           <label for="IdCliente">Cliente</label>
           <select name="IdCliente" id="IdCliente" required>
@@ -76,7 +76,7 @@ if ($r2) while ($row = $r2->fetch_assoc()) $productos[] = $row;
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/calendario.png" alt=""> </div>
         <div class="form-field">
           <label for="FechaVenta">Fecha</label>
           <input type="date" name="Fecha" id="FechaVenta" value="<?= date('Y-m-d'); ?>">

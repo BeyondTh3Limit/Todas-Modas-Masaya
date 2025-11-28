@@ -77,7 +77,7 @@ if ($resProd) {
 
       <!-- Datos generales -->
       <div class="form-row">
-        <div class="icon-slot"></div>
+         <div  class="icon-slot" > <img src="img/proveedor.png" alt=""> </div>
         <div class="form-field">
           <label for="IdProveedor">Proveedor</label>
           <select name="IdProveedor" id="IdProveedor" required>
@@ -92,9 +92,9 @@ if ($resProd) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/calendario.png" alt=""> </div>
         <div class="form-field">
-          <div class="card-actions" class="input-date" >
+          <div class="form-field" class="input-date" >
           <label for="FechaCompra">Fecha de compra  </label>
           
           </div>

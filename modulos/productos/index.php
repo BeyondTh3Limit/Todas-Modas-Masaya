@@ -70,7 +70,7 @@ if ($resCat) {
       <input type="hidden" name="IdProducto" id="IdProducto">
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+       <div  class="icon-slot" > <img src="img/categoria.png" alt=""> </div>
         <div class="form-field">
           <label for="IdCategoria">Categoría</label>
           <select name="IdCategoria" id="IdCategoria" required>
@@ -85,7 +85,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+         <div  class="icon-slot" > <img src="img/marca.png" alt=""> </div>
         <div class="form-field">
           <label for="Marca">Marca</label>
           <input type="text" name="Marca" id="Marca" required>
@@ -93,7 +93,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+         <div  class="icon-slot" > <img src="img/nombre.png" alt=""> </div>
         <div class="form-field">
           <label for="Nombre">Nombre</label>
           <input type="text" name="Nombre" id="Nombre" required>
@@ -101,7 +101,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/descripcion.png" alt=""> </div>
         <div class="form-field">
           <label for="Descripcion">Descripción</label>
           <input type="text" name="Descripcion" id="Descripcion" required>
@@ -109,7 +109,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/talla.png" alt=""> </div>
         <div class="form-field">
           <label for="Talla">Talla</label>
           <input type="text" name="Talla" id="Talla" required>
@@ -117,7 +117,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+       <div  class="icon-slot" > <img src="img/color.png" alt=""> </div>
         <div class="form-field">
           <label for="Color">Color</label>
           <input type="text" name="Color" id="Color" required>
@@ -125,7 +125,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/cantidad.png" alt=""> </div>
         <div class="form-field">
           <label for="Cantidad">Cantidad</label>
           <input type="number" name="Cantidad" id="Cantidad" value="0" min="0" required>
@@ -133,7 +133,7 @@ if ($resCat) {
       </div>
 
       <div class="form-row">
-        <div class="icon-slot"></div>
+        <div  class="icon-slot" > <img src="img/precio.png" alt=""> </div>
         <div class="form-field">
           <label for="Precio_de_Venta">Precio de venta (C$)</label>
           <input type="number" step="0.01" name="Precio_de_Venta" id="Precio_de_Venta" required>

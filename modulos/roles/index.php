@@ -53,7 +53,7 @@ if (!isset($_SESSION['correo'])) {
 
       <div class="form-row">
         <div class="icon-slot">
-          <img src="img/rol.svg" alt="">
+          <img src="img/rol.png" alt="">
         </div>
         <div class="form-field">
           <label for="DescripcionRol">Nombre del rol</label>
