@@ -28,6 +28,7 @@ $importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FR
     <!-- Clientes -->
     <article class="kpi-card kpi-azul">
       <div class="kpi-icon-space">
+        <img src="img/clientes.png" alt="info">
       </div>
       <div class="kpi-info">
         <h3 class="kpi-title">Clientes registrados</h3>
@@ -37,7 +38,9 @@ $importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FR
 
     <!-- Proveedores -->
     <article class="kpi-card kpi-naranja">
-      <div class="kpi-icon-space"></div>
+      <div class="kpi-icon-space">
+        <img src="img/proveedores.png" alt="info">
+      </div>
       <div class="kpi-info">
         <h3 class="kpi-title">Proveedores registrados</h3>
         <p class="kpi-value"><?= (int)$proveedores; ?></p>
@@ -46,16 +49,21 @@ $importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FR
 
     <!-- Unidades en inventario -->
     <article class="kpi-card kpi-morado">
-      <div class="kpi-icon-space"></div>
+      <div class="kpi-icon-space">
+        <img src="img/inventarios.png" alt="info">
+      </div>
       <div class="kpi-info">
         <h3 class="kpi-title">Unidades en inventario</h3>
         <p class="kpi-value"><?= (int)$unidadesInventario; ?></p>
       </div>
     </article>
 
+    
     <!-- Productos vendidos -->
     <article class="kpi-card kpi-turquesa">
-      <div class="kpi-icon-space"></div>
+      <div class="kpi-icon-space">
+        <img src="img/salidas.png" alt="info">
+      </div>
       <div class="kpi-info">
         <h3 class="kpi-title">Productos vendidos</h3>
         <p class="kpi-value"><?= (int)$productosVendidos; ?></p>
@@ -64,7 +72,9 @@ $importeVendido = $conexion->query("SELECT COALESCE(SUM(Subtotal),0) AS total FR
 
     <!-- Importe vendido -->
     <article class="kpi-card kpi-verde">
-      <div class="kpi-icon-space"></div>
+      <div class="kpi-icon-space">
+        <img src="img/ganancia.png" alt="info">
+      </div>
       <div class="kpi-info">
         <h3 class="kpi-title">Importe vendido</h3>
         <p class="kpi-value">C$ <?= number_format($importeVendido, 2); ?></p>
